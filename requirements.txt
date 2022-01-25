@@ -1,0 +1,4 @@
+simfin
+flask
+flask-cors
+gunicorn
