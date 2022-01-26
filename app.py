@@ -14,7 +14,7 @@ CORS(app)
 @app.route('/')
 def index():
     sf.set_api_key(api_key)
-    sf.set_data_dir(os.path.join(app.instance_path,'/simfin_data/'))
+    sf.set_data_dir(os.path.join(app.instance_path, '/simfin_data'))
     hub = sf.StockHub(market='us',
                       refresh_days=30,
                       refresh_days_shareprices=1)
