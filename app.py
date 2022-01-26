@@ -1,5 +1,4 @@
 import simfin as sf
-from simfin.names import *
 from flask import Flask, jsonify
 from flask_cors import CORS
 import pandas as pd
@@ -42,5 +41,16 @@ def index():
     df_prices_latest = hub.load_shareprices(variant='latest')
     mask_date_limit = (df_prices_latest.reset_index(DATE)[DATE] > date_limit)
     mask &= mask_date_limit
-    out = df_signals.loc[mask, P_NETNET]
+    out = {
+      "netToNetStocks": df_signals.loc[mask, P_NETNET],
+      "1yrSignals": df_fin_signals,
+      "2yrSignals": df_fin_signals_2y,
+      "df_growth_signals": df_growth_signals,
+      "df_growth_signals_2y": df_growth_signals_2y,
+      "df_val_signals": df_val_signals,
+      "df_val_signals_2y": df_val_signals_2y
+    };
     return jsonify(out.to_json())
+
+if __name__ == "__main__":
+  app.run()
